@@ -23,12 +23,13 @@ function Withdraw() {
   }
 
     return(
-      <div>
-          <h1>Withdrawal Page</h1> 
-          <input type="text" id="withdrawal-value" name="withdrawal"/>
-          <button onClick={handleClick}>Withdraw</button>
-          <h1>Account Balance: {value}</h1>
-          
+      <div className="center-this">
+        <div className='card'>
+            <h1 className="card-header bg-dark">Withdrawals</h1> 
+            <h1>Account Balance: {value}</h1>
+            <input className="inner-input" type="text" id="withdrawal-value" name="withdrawal"/>
+            <button className="inner-button" onClick={handleClick}>Withdraw</button>
+        </div>
       </div>
   )
 }

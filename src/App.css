@@ -58,5 +58,24 @@ body{
   grid-column: 2/3;
   grid-row: 0/1;
 }
+.inner-input{
+  width: 70%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.inner-button{
+  width: 30%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+.card-header{
+  border: none !important;
+  color: white;
+}
+.card-img{
+  border: none;
+  border-radius: 0 !important;
+}
 
 

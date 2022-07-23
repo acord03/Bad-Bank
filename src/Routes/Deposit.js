@@ -19,12 +19,13 @@ function Deposit(){
     }
     
     return(
-        <div>
-            <h1>Deposit Page</h1> 
-            <input type="text" id="deposit-value" name="deposit"/>
-            <button onClick={handleClick}>Deposit</button>
-            <h1>Account Balance: {value}</h1>
-            
+        <div className="center-this">
+            <div className="card">
+                <h1 className="card-header bg-dark">Deposit Page</h1> 
+                <h1>Account Balance: {value}</h1>
+                <input type="text" id="deposit-value" className="inner-input"/>
+                <button className="inner-button" onClick={handleClick}>Deposit</button>
+            </div>
         </div>
     )
 }
