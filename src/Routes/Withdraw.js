@@ -1,11 +1,12 @@
 import '../App.css';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {UserContext} from '../UserContext';
 
 function Withdraw() {
   const {value, setValue} = useContext(UserContext)
-  const handleClick = ()=>{
-    let withdrawal = document.getElementById('withdrawal-value').value;
+  const [withdrawal, setWithdrawal] = useState('')
+  const handleClick = (e)=>{
+    e.preventDefault()
     if(+value[0].balance - +withdrawal < 0){
       alert('Insufficient funds')
       return
@@ -15,7 +16,7 @@ function Withdraw() {
       return
     }
     if(isNaN(withdrawal)){
-      alert('NaN')
+      alert('Not A Number')
       return
     }
     let total = +value[0].balance - +withdrawal;
@@ -29,8 +30,11 @@ function Withdraw() {
         <div className='card'>
             <h1 className="card-header bg-dark">Withdrawals</h1> 
             <h4>Account Balance: {value[0].balance}</h4>
-            <input className="inner-input" type="text" id="withdrawal-value" name="withdrawal"/>
-            <button className="inner-button" onClick={handleClick}>Withdraw</button>
+            <form onSubmit={handleClick}>
+              <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setWithdrawal(e.target.value)}}/>
+              <br/>
+              <button className="inner-button" disabled={withdrawal.length < 1 ? true: false}>Deposit</button>
+            </form>
         </div>
       </div>
   )

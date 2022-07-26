@@ -1,17 +1,19 @@
 import '../App.css';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {UserContext} from '../UserContext'
 
 function Deposit(){
     const {value, setValue} = useContext(UserContext);
-    const handleClick = ()=>{
-        let deposit = document.getElementById('deposit-value').value;
+    const [deposit, setDeposit] = useState('')
+
+    const handleClick = (e)=>{
+        e.preventDefault()
         if(deposit <= 0){
             alert('Transactions must be in dollar amounts greater than 0');
             return
         }
         if(isNaN(deposit)){
-            alert('NaN')
+            alert('Not A Number')
             return
         }
         let total = +deposit + +value[0].balance;
@@ -19,17 +21,17 @@ function Deposit(){
         newArr[0].balance = total;
         setValue(newArr)
     }
-    const debugLog = ()=>{
-        console.log(value)
-    }
+    
     return(
         <div className="center-this">
             <div className="card">
                 <h1 className="card-header bg-dark">Deposit Page</h1> 
                 <h4>Account Balance: {value[0].balance}</h4>
-                <input type="text" id="deposit-value" className="inner-input"/>
-                <button className="inner-button" onClick={handleClick}>Deposit</button>
-                <button onClick={debugLog}>debuglog</button>
+                <form onSubmit={handleClick}>
+                    <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setDeposit(e.target.value)}}/>
+                    <br/>
+                    <button className="inner-button" disabled={deposit.length < 1 ? true: false}>Deposit</button>
+                </form>
             </div>
         </div>
     )
