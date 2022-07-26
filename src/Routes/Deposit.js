@@ -1,8 +1,10 @@
 import '../App.css';
 import React, {useContext, useState} from 'react';
 import {UserContext} from '../UserContext'
+import {Submissions} from '../Submissions'
 
 function Deposit(){
+    const {submissions, setSubmissions} = useContext(Submissions);
     const {value, setValue} = useContext(UserContext);
     const [deposit, setDeposit] = useState('')
 
@@ -16,6 +18,8 @@ function Deposit(){
             alert('Not A Number')
             return
         }
+        let newSubmission = submissions.concat(`user deposited $${deposit}`);
+        setSubmissions(newSubmission)
         let total = +deposit + +value[0].balance;
         let newArr = [...value];
         newArr[0].balance = total;
@@ -25,7 +29,7 @@ function Deposit(){
     return(
         <div className="center-this">
             <div className="card">
-                <h1 className="card-header bg-dark">Deposit Page</h1> 
+                <h1 className="card-header bg-dark">Deposits</h1> 
                 <h4>Account Balance: {value[0].balance}</h4>
                 <form onSubmit={handleClick}>
                     <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setDeposit(e.target.value)}}/>

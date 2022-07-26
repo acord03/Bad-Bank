@@ -1,9 +1,13 @@
 import '../App.css';
+import {useContext} from 'react';
+import {Submissions} from '../Submissions';
 
 function AllData() {
+  const subs = useContext(Submissions);
+  const data = JSON.stringify(subs)
   return (
     <div>
-      <h1>All Data Page</h1>
+      <p>{data}</p>
     </div>
   );
 }

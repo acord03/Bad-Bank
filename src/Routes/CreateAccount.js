@@ -1,8 +1,10 @@
 import '../App.css';
 import {useState, useContext} from 'react'
 import {UserContext} from '../UserContext';
+import {Submissions} from '../Submissions'
 
 function CreateAccount(){
+    const {submissions, setSubmissions} = useContext(Submissions)
     const {value, setValue} = useContext(UserContext)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -16,6 +18,8 @@ function CreateAccount(){
             pass: password,
             balance: 100
         }
+        let newSubmission = submissions.concat(newAcc);
+        setSubmissions(newSubmission)
         const newArr = value.concat(newAcc)
         setValue(newArr)
     }

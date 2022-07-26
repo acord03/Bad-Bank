@@ -8,11 +8,13 @@ import CreateAccount from './Routes/CreateAccount';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, {useState} from 'react';
 import {UserContext} from './UserContext';
+import {Submissions} from './Submissions';
 
 function App() {
   const [value, setValue] = useState([{user:'samuel',adress: 'samuel@mit.edu', pass: 'secret', balance:100}])
-
+  const [submissions, setSubmissions] = useState([])
   return (
+    <Submissions.Provider value={{submissions, setSubmissions}}>
       <UserContext.Provider value={{value, setValue}}>
         <Router>
           <div className="App">
@@ -31,6 +33,7 @@ function App() {
           </div>
         </Router>
       </UserContext.Provider>
+    </Submissions.Provider>
   );
 }
 

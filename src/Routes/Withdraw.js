@@ -1,8 +1,10 @@
 import '../App.css';
 import React, {useContext, useState} from 'react';
 import {UserContext} from '../UserContext';
+import {Submissions} from '../Submissions'
 
 function Withdraw() {
+  const {submissions, setSubmissions} = useContext(Submissions)
   const {value, setValue} = useContext(UserContext)
   const [withdrawal, setWithdrawal] = useState('')
   const handleClick = (e)=>{
@@ -19,6 +21,8 @@ function Withdraw() {
       alert('Not A Number')
       return
     }
+    let newSubmission = submissions.concat(`user withdrew $${withdrawal}`);
+    setSubmissions(newSubmission)
     let total = +value[0].balance - +withdrawal;
     let newArr = [...value];
     newArr[0].balance = total;
@@ -33,7 +37,7 @@ function Withdraw() {
             <form onSubmit={handleClick}>
               <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setWithdrawal(e.target.value)}}/>
               <br/>
-              <button className="inner-button" disabled={withdrawal.length < 1 ? true: false}>Deposit</button>
+              <button className="inner-button" disabled={withdrawal.length < 1 ? true: false}>Withdraw</button>
             </form>
         </div>
       </div>
