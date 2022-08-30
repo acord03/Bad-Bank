@@ -1,4 +1,4 @@
-You can find the aws deployment at 
+You can find the heroku deployment at 
 
 https://avery-corderobadbank.herokuapp.com/
 
