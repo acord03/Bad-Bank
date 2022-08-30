@@ -1,6 +1,6 @@
 You can find the aws deployment at 
 
-http://avery-corderobankingapplication.s3-website-us-east-1.amazonaws.com
+https://avery-corderobadbank.herokuapp.com/
 
 #Getting Started with Create React App
 
