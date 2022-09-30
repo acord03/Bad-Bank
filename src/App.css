@@ -51,11 +51,6 @@ body{
   grid-template-rows: 100px 1fr 1fr;
 }
 
-#root{
-  min-height: 100vh;
-  width:100%;
-}
-
 .header{
   margin: auto;
   grid-column: 2/3;
