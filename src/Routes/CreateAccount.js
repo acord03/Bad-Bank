@@ -1,11 +1,11 @@
-import '../App.css';
+import '../App.css'
 import {useState, useContext} from 'react'
-import {UserContext} from '../UserContext'
 import {Submissions} from '../Submissions'
+import {auth} from '../firebase'
+import {createUserWithEmailAndPassword } from 'firebase/auth'
 
 function CreateAccount(){
     const {submissions, setSubmissions} = useContext(Submissions)
-    const {value, setValue} = useContext(UserContext)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -15,17 +15,19 @@ function CreateAccount(){
     
     
     const handleSubmit = (event)=>{
-        event.preventDefault();
+        event.preventDefault()
         let newAcc = {
             username: username,
             email: email,
-            password: password,
-            balance: 100
+            password: password
         }
-        let newSubmission = submissions.concat(newAcc);
+        let newSubmission = submissions.concat(newAcc)
         setSubmissions(newSubmission)
-        const newArr = value.concat(newAcc)
-        setValue(newArr)
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential)=>{
+            const user = userCredential.user;
+            console.log(user)
+        })
         alert('New Account Created')
     }
     
@@ -54,7 +56,7 @@ function CreateAccount(){
                         setSelected3(keyInputs)
                         setPassword(e.target.value)
                         console.log(password)
-                    }} placeholder="Password"/>
+                    }} placeholder="Password (8+ characters)"/>
                     <br/>
                     {password.length < 8 && selected3 >= 8 ? <p className="error">Password must 8 characters or longer</p>: null}
                     <button className="inner-button" id="submit-button" disabled={!username || !email || password.length < 8 ? true: false}>Create Account</button>
