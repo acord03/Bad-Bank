@@ -1,10 +1,9 @@
 import '../App.css'
 import {useState, useContext} from 'react'
 import {Submissions} from '../Submissions'
-import {auth} from '../firebase'
-import {createUserWithEmailAndPassword } from 'firebase/auth'
 
 function CreateAccount(){
+    const [userCreated, setUserCreated] = useState(false)
     const {submissions, setSubmissions} = useContext(Submissions)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -16,18 +15,19 @@ function CreateAccount(){
     
     const handleSubmit = (event)=>{
         event.preventDefault()
+        if(userCreated === true){
+            return alert(`User Already Created this session`)
+        }        
+        setUserCreated(true)
+
         let newAcc = {
             username: username,
             email: email,
             password: password
         }
+        
         let newSubmission = submissions.concat(newAcc)
         setSubmissions(newSubmission)
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential)=>{
-            const user = userCredential.user;
-            console.log(user)
-        })
         alert('New Account Created')
     }
     
