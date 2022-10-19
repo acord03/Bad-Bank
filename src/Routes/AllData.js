@@ -7,7 +7,12 @@ function AllData() {
   const data = JSON.stringify(subs)
   return (
     <div>
-      <p>{data}</p>
+      <div className="user-display">
+        <h2>username</h2>
+      </div>
+      <div>
+        <p>{data}</p>
+      </div>
     </div>
   );
 }

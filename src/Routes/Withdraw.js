@@ -30,15 +30,20 @@ function Withdraw() {
   }
 
     return(
-      <div className="center-this">
-        <div className='card'>
-            <h1 className="card-header bg-dark">Withdrawals</h1> 
-            <h4>Account Balance: {value[0].balance}</h4>
-            <form onSubmit={handleClick}>
-              <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setWithdrawal(e.target.value)}}/>
-              <br/>
-              <button className="inner-button" disabled={withdrawal.length < 1 ? true: false}>Withdraw</button>
-            </form>
+      <div>
+        <div className="user-display">
+          <h2>username</h2>
+        </div>
+        <div className="center-this">
+          <div className='card'>
+              <h1 className="card-header bg-dark">Withdrawals</h1> 
+              <h4>Account Balance: {value[0].balance}</h4>
+              <form onSubmit={handleClick}>
+                <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setWithdrawal(e.target.value)}}/>
+                <br/>
+                <button className="inner-button" disabled={withdrawal.length < 1 ? true: false}>Withdraw</button>
+              </form>
+          </div>
         </div>
       </div>
   )
