@@ -11,7 +11,7 @@ import {UserContext} from './UserContext';
 import {Submissions} from './Submissions';
 
 function App() {
-  const [value, setValue] = useState([{user:'samuel',adress: 'samuel@mit.edu', pass: 'secret', balance:100}])
+  const [value, setValue] = useState({email: 'email@email.com', password: 'idksumthn', balance: 500})
   const [submissions, setSubmissions] = useState([])
   return (
     <Submissions.Provider value={{submissions, setSubmissions}}>

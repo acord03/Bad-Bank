@@ -20,21 +20,21 @@ function Deposit(){
         }
         let newSubmission = submissions.concat(`user deposited $${deposit}`);
         setSubmissions(newSubmission)
-        let total = +deposit + +value[0].balance;
-        let newArr = [...value];
-        newArr[0].balance = total;
-        setValue(newArr)
+        let total = +deposit + +value.balance;
+        let newValue = value;
+        newValue.balance = total;
+        setValue(newValue)
     }
     
     return(
         <div>
             <div className="user-display">
-                <h2>username</h2>
+                <h2>{value.email}</h2>
             </div>
             <div className="center-this">
                 <div className="card">
                     <h1 className="card-header bg-dark">Deposits</h1> 
-                    <h4>Account Balance: {value[0].balance}</h4>
+                    <h4>Account Balance: {value.balance}</h4>
                     <form onSubmit={handleClick}>
                         <input type="text" id='deposit-value' className="inner-input" onChange={(e)=>{setDeposit(e.target.value)}}/>
                         <br/>

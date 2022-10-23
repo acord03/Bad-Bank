@@ -1,11 +1,14 @@
 import React from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 import img from '../img.jpg'
 
 const Home = () =>{
+  const {value} = useContext(UserContext)
   return(
     <div>
       <div className="user-display">
-        <h2>username</h2>
+        <h2>{value.email}</h2>
       </div>
 
       <div className="center-this">
