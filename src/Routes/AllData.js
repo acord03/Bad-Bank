@@ -13,7 +13,7 @@ function AllData() {
     <div>
       {signedIn === true &&
         <div className="user-display">
-          <h2>{value.email}</h2>
+          <h2>{value}</h2>
         </div>
       }
       <div>

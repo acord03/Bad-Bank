@@ -3,12 +3,14 @@ import {useState, useContext} from 'react'
 import {Submissions} from '../Submissions'
 import {UserContext} from '../UserContext'
 import { SignedIn } from '../SignedIn'
+import { auth } from '../firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 function CreateAccount(){
     const {signedIn} = useContext(SignedIn)
     const [userCreated, setUserCreated] = useState(false)
     const {submissions, setSubmissions} = useContext(Submissions)
-    const {value, setValue} = useContext(UserContext)
+    const {value} = useContext(UserContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConf, setPasswordConf] = useState('')
@@ -17,7 +19,7 @@ function CreateAccount(){
     const [selected3, setSelected3] = useState(0)
     
     
-    const handleSubmit = (event)=>{
+    const handleSubmit = async (event)=>{
         event.preventDefault()
         if(signedIn === true){
             return alert(`You're already signed in.`)
@@ -27,15 +29,20 @@ function CreateAccount(){
         }        
         setUserCreated(true)
 
-        let newAcc = {
-            email: email,
-            password: password,
-            balance: 100
-        }
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((UserCredential)=>{
+            const user = UserCredential.user
+            console.log(user)
+        })
+        .catch((error)=>{
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log(`Error Code: ${errorCode} Error Message: ${errorMessage}`)
+        })
         
+        let newAcc = {email: email, password: password, balance:500}
         let newSubmission = submissions.concat(newAcc)
         setSubmissions(newSubmission)
-        setValue(newAcc)
         alert('New Account Created')
     }
     
@@ -43,7 +50,7 @@ function CreateAccount(){
         <div>
             {signedIn === true &&
             <div className="user-display">
-                <h2>{value.email}</h2>
+                <h2>{value}</h2>
             </div>
             }
             <div className="center-this">

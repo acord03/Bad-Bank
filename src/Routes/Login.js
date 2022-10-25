@@ -2,24 +2,40 @@ import '../App.css'
 import {useState, useContext} from 'react'
 import {UserContext} from '../UserContext'
 import { SignedIn } from '../SignedIn'
+import { auth } from '../firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 function Login(){
     const {signedIn, setSignedIn} = useContext(SignedIn)
-    const {value} = useContext(UserContext)
+    const {value, setValue} = useContext(UserContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [selected2, setSelected2] = useState(false)
     const [selected3, setSelected3] = useState(0)
     
     
-    const handleSubmit = (event)=>{
+    const handleSubmit = async (event)=>{
         event.preventDefault()
         if(signedIn === true){
             return alert(`You're already signed in.`)
         }
+        signInWithEmailAndPassword(auth, email, password)
+        .then((UserCredential)=>{
+            const user = UserCredential.user
+            const username = user.email
+            setValue(username)
+            console.log(user)
+            setSignedIn(true)
+            alert('Sign In successful')
+        })
+        .catch((error)=>{
+            let errorCode = error.code;
+            let errorMessage = error.message;
 
-        setSignedIn(true)
-        alert('Login Completed')
+            console.log(`error code: ${errorCode}, error message:${errorMessage}`)
+        })
+        
+        
     }
 
     const handleLogout = ()=>{
@@ -31,7 +47,7 @@ function Login(){
         <div>
             {signedIn === true &&
             <div className="user-display">
-                <h2>{value.email}</h2>
+                <h2>{value}</h2>
             </div>
             }
             <div className="center-this">

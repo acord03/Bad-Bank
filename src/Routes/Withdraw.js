@@ -7,7 +7,7 @@ import { SignedIn } from '../SignedIn';
 function Withdraw() {
   const {signedIn} = useContext(SignedIn)
   const {submissions, setSubmissions} = useContext(Submissions)
-  const {value, setValue} = useContext(UserContext)
+  const {value} = useContext(UserContext)
   const [withdrawal, setWithdrawal] = useState('')
   const handleClick = (e)=>{
     e.preventDefault()
@@ -25,17 +25,13 @@ function Withdraw() {
     }
     let newSubmission = submissions.concat(`user withdrew $${withdrawal}`);
     setSubmissions(newSubmission)
-    let total = +value.balance - +withdrawal;
-    let newValue = value;
-    newValue.balance = total;
-    setValue(newValue)
   }
 
     return(
       <div>
         {signedIn === true &&
           <div className="user-display">
-            <h2>{value.email}</h2>
+            <h2>{value}</h2>
           </div>
         }
         <div className="center-this">

@@ -7,7 +7,7 @@ import { SignedIn } from '../SignedIn';
 function Deposit(){
     const {signedIn} = useContext(SignedIn)
     const {submissions, setSubmissions} = useContext(Submissions);
-    const {value, setValue} = useContext(UserContext);
+    const {value} = useContext(UserContext);
     const [deposit, setDeposit] = useState('')
 
     const handleClick = (e)=>{
@@ -22,17 +22,13 @@ function Deposit(){
         }
         let newSubmission = submissions.concat(`user deposited $${deposit}`);
         setSubmissions(newSubmission)
-        let total = +deposit + +value.balance;
-        let newValue = value;
-        newValue.balance = total;
-        setValue(newValue)
     }
     
     return(
         <div>
             {signedIn === true &&
                 <div className="user-display">
-                    <h2>{value.email}</h2>
+                    <h2>{value}</h2>
                 </div>
             }
             <div className="center-this">
