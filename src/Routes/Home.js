@@ -2,14 +2,18 @@ import React from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import img from '../img.jpg'
+import { SignedIn } from '../SignedIn';
 
 const Home = () =>{
+  const {signedIn} = useContext(SignedIn)
   const {value} = useContext(UserContext)
   return(
     <div>
-      <div className="user-display">
-        <h2>{value.email}</h2>
-      </div>
+      {signedIn === true &&
+        <div className="user-display">
+          <h2>{value.email}</h2>
+        </div>
+      }
 
       <div className="center-this">
         <div className="card">

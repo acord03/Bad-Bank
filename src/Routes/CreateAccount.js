@@ -2,8 +2,10 @@ import '../App.css'
 import {useState, useContext} from 'react'
 import {Submissions} from '../Submissions'
 import {UserContext} from '../UserContext'
+import { SignedIn } from '../SignedIn'
 
 function CreateAccount(){
+    const {signedIn, setSignedIn} = useContext(SignedIn)
     const [userCreated, setUserCreated] = useState(false)
     const {submissions, setSubmissions} = useContext(Submissions)
     const {value, setValue} = useContext(UserContext)
@@ -15,8 +17,11 @@ function CreateAccount(){
     
     const handleSubmit = (event)=>{
         event.preventDefault()
+        if(signedIn === true){
+            return alert(`You're already signed in.`)
+        }
         if(userCreated === true){
-            return alert(`User Already Created this session`)
+            return alert(`User Already Created this session.`)
         }        
         setUserCreated(true)
 
@@ -29,14 +34,17 @@ function CreateAccount(){
         let newSubmission = submissions.concat(newAcc)
         setSubmissions(newSubmission)
         setValue(newAcc)
+        setSignedIn(true)
         alert('New Account Created')
     }
     
     return(
         <div>
+            {signedIn === true &&
             <div className="user-display">
                 <h2>{value.email}</h2>
             </div>
+            }
             <div className="center-this">
                 <div className="card">
                     <h1 className="card-header bg-dark">Account Creation</h1> 

@@ -2,8 +2,10 @@ import '../App.css';
 import React, {useContext, useState} from 'react';
 import {UserContext} from '../UserContext';
 import {Submissions} from '../Submissions'
+import { SignedIn } from '../SignedIn';
 
 function Withdraw() {
+  const {signedIn} = useContext(SignedIn)
   const {submissions, setSubmissions} = useContext(Submissions)
   const {value, setValue} = useContext(UserContext)
   const [withdrawal, setWithdrawal] = useState('')
@@ -31,9 +33,11 @@ function Withdraw() {
 
     return(
       <div>
-        <div className="user-display">
-          <h2>{value.email}</h2>
-        </div>
+        {signedIn === true &&
+          <div className="user-display">
+            <h2>{value.email}</h2>
+          </div>
+        }
         <div className="center-this">
           <div className='card'>
               <h1 className="card-header bg-dark">Withdrawals</h1> 

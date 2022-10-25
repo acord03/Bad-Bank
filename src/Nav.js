@@ -41,7 +41,7 @@ function Nav() {
                     <Link className="nav-link color-change" to='/create-account' id="create-account" onClick={()=>setCurrent(1)}>Create Account</Link>
                     </li>
                     <li className="nav-item">
-                    <Link className="nav-link color-change" to='/deposit' id="deposit" onClick={()=>setCurrent(2)}>Deposit</Link>
+                    <Link className="nav-link color-change" to='/deposit' id="deposit" onClick={()=>setCurrent(2)} disabled="true">Deposit</Link>
                     </li>
                     <li className="nav-item">
                     <Link className="nav-link color-change" to='/withdraw' id="withdraw" onClick={()=>setCurrent(3)}>Withdraw</Link>
