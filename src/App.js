@@ -10,6 +10,7 @@ import React, {useState} from 'react';
 import {UserContext} from './UserContext';
 import {Submissions} from './Submissions';
 import { SignedIn } from './SignedIn';
+import Login from './Routes/Login';
 
 function App() {
   const [value, setValue] = useState({email: 'email@email.com', password: 'idksumthn', balance: 500})
@@ -26,7 +27,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home/>}/>
                   <Route path="/create-account" element={<CreateAccount/>}/>
-                  
+                  <Route path='/login' element={<Login/>}/>
                   <Route path="/withdraw" element={<Withdraw />}/>
                   <Route path='/deposit' element={<Deposit />}/>
                   

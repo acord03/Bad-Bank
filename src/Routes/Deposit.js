@@ -31,9 +31,9 @@ function Deposit(){
     return(
         <div>
             {signedIn === true &&
-            <div className="user-display">
-                <h2>{value.email}</h2>
-            </div>
+                <div className="user-display">
+                    <h2>{value.email}</h2>
+                </div>
             }
             <div className="center-this">
                 <div className="card">

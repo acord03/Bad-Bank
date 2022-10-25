@@ -11,8 +11,9 @@ function Nav() {
         const deposit = document.getElementById('deposit');
         const withdraw = document.getElementById('withdraw');
         const allData = document.getElementById('all-data');
+        const login = document.getElementById('login');
     
-        const navLinks = [home, createAccount, deposit, withdraw, allData];
+        const navLinks = [home, createAccount, deposit, withdraw, allData, login];
     
         for(let i = 0; i < navLinks.length; i++){
             if(navLinks[i].classList.contains('active')){
@@ -39,6 +40,9 @@ function Nav() {
                     </li>
                     <li className="nav-item">
                     <Link className="nav-link color-change" to='/create-account' id="create-account" onClick={()=>setCurrent(1)}>Create Account</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link className="nav-link color-change" to='/login' id="login" onClick={()=>setCurrent(5)}>Login/Logout</Link>
                     </li>
                     <li className="nav-item">
                     <Link className="nav-link color-change" to='/deposit' id="deposit" onClick={()=>setCurrent(2)} disabled="true">Deposit</Link>
