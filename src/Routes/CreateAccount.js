@@ -27,23 +27,25 @@ function CreateAccount(){
         if(userCreated === true){
             return alert(`User Already Created this session.`)
         }        
-        setUserCreated(true)
+        
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((UserCredential)=>{
+            setUserCreated(true)
             const user = UserCredential.user
             console.log(user)
+            alert('New Account Created')
         })
         .catch((error)=>{
             let errorCode = error.code;
             let errorMessage = error.message;
-            console.log(`Error Code: ${errorCode} Error Message: ${errorMessage}`)
+            alert(`Error Code: ${errorCode} Error Message: ${errorMessage}`)
         })
         
         let newAcc = {email: email, password: password, balance:500}
         let newSubmission = submissions.concat(newAcc)
         setSubmissions(newSubmission)
-        alert('New Account Created')
+        
     }
     
     return(

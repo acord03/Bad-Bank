@@ -3,7 +3,7 @@ import {useState, useContext} from 'react'
 import {UserContext} from '../UserContext'
 import { SignedIn } from '../SignedIn'
 import { auth } from '../firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 function Login(){
     const {signedIn, setSignedIn} = useContext(SignedIn)
@@ -32,15 +32,21 @@ function Login(){
             let errorCode = error.code;
             let errorMessage = error.message;
 
-            console.log(`error code: ${errorCode}, error message:${errorMessage}`)
+            alert(`Error Code: ${errorCode} Error Message: ${errorMessage}`)
         })
         
         
     }
 
     const handleLogout = ()=>{
-        setSignedIn(false)
-        alert('Logged out')
+        signOut(auth)
+        .then(()=>{
+            setSignedIn(false)
+            alert('Logged out')
+        })
+        .catch((error)=>{
+            alert(`Error message: ${error.message}`)
+        })
     }
     
     return(
