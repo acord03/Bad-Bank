@@ -3,14 +3,16 @@ import {useState, useContext} from 'react'
 import {Submissions} from '../Submissions'
 import {UserContext} from '../UserContext'
 import { SignedIn } from '../SignedIn'
-import { auth } from '../firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '../firebase'
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { setDoc, doc } from 'firebase/firestore'
+
 
 function CreateAccount(){
-    const {signedIn} = useContext(SignedIn)
+    const {signedIn, setSignedIn} = useContext(SignedIn)
     const [userCreated, setUserCreated] = useState(false)
     const {submissions, setSubmissions} = useContext(Submissions)
-    const {value} = useContext(UserContext)
+    const {value, setValue} = useContext(UserContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConf, setPasswordConf] = useState('')
@@ -30,10 +32,14 @@ function CreateAccount(){
         
 
         createUserWithEmailAndPassword(auth, email, password)
-        .then((UserCredential)=>{
+        .then((userCredential)=>{
             setUserCreated(true)
-            const user = UserCredential.user
-            console.log(user)
+            const user = userCredential.user
+            setDoc(doc(db, "users", user.uid),{
+                balance: 10
+            })
+            setValue(user)
+            setSignedIn(true)
             alert('New Account Created')
         })
         .catch((error)=>{
@@ -42,17 +48,34 @@ function CreateAccount(){
             alert(`Error Code: ${errorCode} Error Message: ${errorMessage}`)
         })
         
-        let newAcc = {email: email, password: password, balance:500}
+        let newAcc = {email: email, password: password, balance: 10}
         let newSubmission = submissions.concat(newAcc)
         setSubmissions(newSubmission)
-        
     }
-    
+
+    const provider = new GoogleAuthProvider()
+    const createUserWithGoogle = async ()=>{
+        signInWithPopup(auth, provider)
+        .then((userCredential)=>{
+            let user = userCredential.user;
+            setDoc(doc(db, "users", user.uid),{
+                balance: 10
+            })
+            setValue(user)
+            setSignedIn(true)
+            console.log(userCredential)
+            alert('New Account Created')
+        })
+        .catch((error)=>{
+            alert(error.message)
+        })
+    }
+
     return(
         <div>
             {signedIn === true &&
             <div className="user-display">
-                <h2>{value}</h2>
+                <h2>{value.email}</h2>
             </div>
             }
             <div className="center-this">
@@ -83,8 +106,10 @@ function CreateAccount(){
                         }} placeholder="Confirm Password"/>
                         <br/>
                         {password !== passwordConf && selected1 >= 8 ? <p className='error'>Passwords must match</p>: null}
-                        <button className="inner-button" id="submit-button" disabled={!email || password.length < 8 || passwordConf !== password? true: false}>Create Account</button>
+                        <button className="inner-button" id="submit-button" disabled={!email || password.length < 8 || passwordConf !== password || signedIn === true? true: false}>Create Account</button>
                     </form>
+                    <p>OR</p>
+                    <button className="inner-button" id="google-button" onClick={createUserWithGoogle} disabled={signedIn === true ? true : false}>Create Account with Google</button>
                 </div>
             </div>
         </div>

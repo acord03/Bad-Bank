@@ -45,13 +45,13 @@ function Nav() {
                     <Link className="nav-link color-change" to='/login' id="login" onClick={()=>setCurrent(5)}>Login/Logout</Link>
                     </li>
                     <li className="nav-item">
-                    <Link className="nav-link color-change" to='/deposit' id="deposit" onClick={()=>setCurrent(2)} disabled="true">Deposit</Link>
+                    <Link className="nav-link color-change" to='/deposit' id="deposit" onClick={()=>setCurrent(2)}>Deposit</Link>
                     </li>
                     <li className="nav-item">
                     <Link className="nav-link color-change" to='/withdraw' id="withdraw" onClick={()=>setCurrent(3)}>Withdraw</Link>
                     </li>
                     <li className="nav-item">
-                    <Link className="nav-link color-change" to='/all-data' id="all-data" onClick={()=>setCurrent(4)}>All Data</Link>
+                    <Link className="nav-link color-change" to='/all-data' id="all-data" onClick={()=>setCurrent(4)}>All Submissions</Link>
                     </li>
                 </ul>
                 </div>

@@ -13,7 +13,7 @@ import { SignedIn } from './SignedIn';
 import Login from './Routes/Login';
 
 function App() {
-  const [value, setValue] = useState({email: 'email@email.com', password: 'idksumthn', balance: 500})
+  const [value, setValue] = useState(null)
   const [submissions, setSubmissions] = useState([])
   const [signedIn, setSignedIn] = useState(false)
   return (
@@ -30,7 +30,6 @@ function App() {
                   <Route path='/login' element={<Login/>}/>
                   <Route path="/withdraw" element={<Withdraw />}/>
                   <Route path='/deposit' element={<Deposit />}/>
-                  
                   <Route path="/all-data" element={<AllData/>}/>
                 </Routes>
               

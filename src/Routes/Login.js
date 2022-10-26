@@ -3,7 +3,9 @@ import {useState, useContext} from 'react'
 import {UserContext} from '../UserContext'
 import { SignedIn } from '../SignedIn'
 import { auth } from '../firebase'
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+
+
 
 function Login(){
     const {signedIn, setSignedIn} = useContext(SignedIn)
@@ -16,17 +18,12 @@ function Login(){
     
     const handleSubmit = async (event)=>{
         event.preventDefault()
-        if(signedIn === true){
-            return alert(`You're already signed in.`)
-        }
         signInWithEmailAndPassword(auth, email, password)
         .then((UserCredential)=>{
             const user = UserCredential.user
-            const username = user.email
-            setValue(username)
-            console.log(user)
+            setValue(user)
             setSignedIn(true)
-            alert('Sign In successful')
+            alert('Sign in successful')
         })
         .catch((error)=>{
             let errorCode = error.code;
@@ -34,14 +31,13 @@ function Login(){
 
             alert(`Error Code: ${errorCode} Error Message: ${errorMessage}`)
         })
-        
-        
     }
 
     const handleLogout = ()=>{
         signOut(auth)
         .then(()=>{
             setSignedIn(false)
+            setValue(null)
             alert('Logged out')
         })
         .catch((error)=>{
@@ -49,11 +45,25 @@ function Login(){
         })
     }
     
+    const provider = new GoogleAuthProvider()
+    const signInWithGoogle = async ()=>{
+        signInWithPopup(auth, provider)
+        .then((userCredential)=>{
+            let user = userCredential.user;
+            setValue(user)
+            setSignedIn(true)
+            alert('Sign in successful')
+        })
+        .catch((error)=>{
+            alert(error.message)
+        })
+    }
+
     return(
         <div>
             {signedIn === true &&
             <div className="user-display">
-                <h2>{value}</h2>
+                <h2>{value.email}</h2>
             </div>
             }
             <div className="center-this">
@@ -63,7 +73,6 @@ function Login(){
                         <input type="text" id="email" className="inner-input" onChange={(e)=>{
                             setSelected2(true)
                             setEmail(e.target.value)
-                            console.log(email)
                         }} placeholder="Email"/>
                         <br/>
                         {email.length === 0 && selected2 === true ? <p className="error">This field is required</p>: null}
@@ -72,12 +81,13 @@ function Login(){
                             keyInputs++
                             setSelected3(keyInputs)
                             setPassword(e.target.value)
-                            console.log(password)
                         }} placeholder="Password"/>
                         <br/>
                         {password.length < 8 && selected3 >= 8 ? <p className="error">Password must be 8 characters or longer</p>: null}
-                        <button className="inner-button" id="submit-button" disabled={!email || password.length < 8 ? true: false}>Login</button> 
+                        <button className="inner-button" id="submit-button" disabled={!email || password.length < 8 || signedIn === true ? true: false}>Login</button> 
                     </form>
+                    <p>OR</p>
+                    <button className="inner-button" id="google-button" onClick={signInWithGoogle} disabled={signedIn === true ? true : false}>Log in with Google</button>
                     <button className="inner-button" id="logout-button" disabled={signedIn === false ? true: false} onClick={handleLogout}>Logout</button>
                 </div>
             </div>

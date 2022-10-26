@@ -11,7 +11,7 @@ const Home = () =>{
     <div>
       {signedIn === true &&
         <div className="user-display">
-          <h2>{value}</h2>
+          <h2>{value.email}</h2>
         </div>
       }
 
