@@ -1,6 +1,5 @@
-You can find the heroku deployment at 
+The deployment broke for some reason. I'm trying to fix it 
 
-https://avery-corderofullstackbankapp.herokuapp.com/
 
 #Getting Started with Create React App
 
